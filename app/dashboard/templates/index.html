@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opening Bell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="navbar">
+      <div class="navbar-brand">
+        <span class="brand-icon">🔔</span>
+        <span class="brand-name">Opening Bell</span>
+      </div>
+      <div class="navbar-actions">
+        <select id="date-picker" class="date-select" aria-label="Select briefing date"></select>
+        <button id="theme-toggle" class="btn-icon" title="Toggle light/dark mode" aria-label="Toggle theme"><span id="theme-icon">☀️</span></button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading briefing…</p>
+      </div>
+
+      <div id="error" class="error-state hidden">
+        <div class="error-icon">📭</div>
+        <h2>No briefing available yet</h2>
+        <p>Run the pipeline to generate today's briefing:</p>
+        <code class="inline-code">make run</code>
+      </div>
+
+      <div id="content" class="hidden">
+        <div class="briefing-header">
+          <div>
+            <h1 id="briefing-date" class="briefing-title"></h1>
+            <p id="generated-at" class="text-muted"></p>
+          </div>
+        </div>
+
+        <!-- Market Snapshot -->
+        <section class="card">
+          <h2 class="card-title">
+            <span class="card-title-icon">📈</span>
+            Market Snapshot
+          </h2>
+          <div id="market-snapshot" class="market-grid"></div>
+        </section>
+
+        <!-- Key Takeaway -->
+        <section class="card accent-card">
+          <h2 class="card-title">
+            <span class="card-title-icon">💡</span>
+            Key Takeaway
+          </h2>
+          <p id="key-takeaway" class="takeaway-text"></p>
+        </section>
+
+        <!-- Two column -->
+        <div class="two-col">
+          <section class="card">
+            <h2 class="card-title">
+              <span class="card-title-icon">🏦</span>
+              Macro Pulse
+            </h2>
+            <p id="macro-pulse" class="body-text"></p>
+          </section>
+
+          <section class="card">
+            <h2 class="card-title">
+              <span class="card-title-icon">🔭</span>
+              Sector Spotlight
+            </h2>
+            <p id="sector-spotlight" class="body-text"></p>
+          </section>
+        </div>
+
+        <!-- Top Stories -->
+        <section class="card">
+          <h2 class="card-title">
+            <span class="card-title-icon">📰</span>
+            Top Stories
+          </h2>
+          <div id="top-stories" class="stories-list"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Powered by <a href="https://anthropic.com" target="_blank" rel="noopener">Claude</a></span>
+      <span class="footer-sep">·</span>
+      <span id="footer-date"></span>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
