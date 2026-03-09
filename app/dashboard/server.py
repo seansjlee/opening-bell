@@ -1,11 +1,14 @@
 """FastAPI dashboard server with embedded APScheduler."""
 
+from __future__ import annotations
+
+import asyncio
 import json
 import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, BackgroundTasks, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -61,6 +64,14 @@ async def list_briefings():
         return JSONResponse([])
     dates = sorted([p.stem for p in BRIEFINGS_DIR.glob("*.json")], reverse=True)
     return JSONResponse(dates)
+
+
+@app.post("/api/run")
+async def trigger_pipeline(background_tasks: BackgroundTasks):
+    """Manually trigger the pipeline. Runs in the background so the request returns immediately."""
+    from app.pipeline import run_pipeline
+    background_tasks.add_task(run_pipeline)
+    return {"status": "pipeline started — check back in ~30 seconds for the briefing"}
 
 
 @app.get("/health")
