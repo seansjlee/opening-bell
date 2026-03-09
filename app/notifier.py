@@ -1,5 +1,7 @@
 """Sends the daily briefing to Slack via Incoming Webhook using Block Kit."""
 
+from __future__ import annotations
+
 import logging
 import os
 

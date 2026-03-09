@@ -1,5 +1,7 @@
 """Fetches market data via yfinance and news headlines via RSS feedparser."""
 
+from __future__ import annotations
+
 import logging
 from datetime import datetime
 from zoneinfo import ZoneInfo

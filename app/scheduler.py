@@ -1,5 +1,7 @@
 """APScheduler configuration for the 8 AM London time daily briefing."""
 
+from __future__ import annotations
+
 import logging
 
 from apscheduler.schedulers.background import BackgroundScheduler
