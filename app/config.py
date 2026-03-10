@@ -36,20 +36,23 @@ SCHEDULE_TIMEZONE = "Europe/London"
 MARKET_INSTRUMENTS = {
     "indices": [
         {"symbol": "^GSPC", "name": "S&P 500"},
-        {"symbol": "^IXIC", "name": "NASDAQ"},
-        {"symbol": "^DJI", "name": "Dow Jones"},
         {"symbol": "^FTSE", "name": "FTSE 100"},
         {"symbol": "^GDAXI", "name": "DAX"},
         {"symbol": "^N225", "name": "Nikkei 225"},
+        {"symbol": "^KS11", "name": "KOSPI"},
+        {"symbol": "000300.SS", "name": "CSI 300"},
     ],
     "forex": [
-        {"symbol": "EURUSD=X", "name": "EUR/USD"},
         {"symbol": "GBPUSD=X", "name": "GBP/USD"},
+        {"symbol": "GBPKRW=X", "name": "GBP/KRW"},
+        {"symbol": "USDKRW=X", "name": "USD/KRW"},
+        {"symbol": "EURUSD=X", "name": "EUR/USD"},
         {"symbol": "USDJPY=X", "name": "USD/JPY"},
     ],
     "commodities": [
         {"symbol": "GC=F", "name": "Gold"},
         {"symbol": "CL=F", "name": "WTI Oil"},
+        {"symbol": "^TNX", "name": "US 10Y Treasury"},
         {"symbol": "BTC-USD", "name": "Bitcoin"},
     ],
 }
