@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).parent.parent
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR = Path(os.getenv("DATA_DIR", str(BASE_DIR / "data")))
 BRIEFINGS_DIR = DATA_DIR / "briefings"
 
 BRIEFINGS_DIR.mkdir(parents=True, exist_ok=True)
