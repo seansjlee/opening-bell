@@ -56,10 +56,10 @@ MARKET_INSTRUMENTS = {
 
 RSS_FEEDS = [
     {"name": "BBC Business", "url": "https://feeds.bbci.co.uk/news/business/rss.xml"},
-    {"name": "Reuters Business", "url": "https://feeds.reuters.com/reuters/businessNews"},
-    {"name": "CNBC Top News", "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html"},
-    {"name": "MarketWatch", "url": "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines"},
-    {"name": "Yahoo Finance", "url": "https://finance.yahoo.com/news/rssindex"},
+    {"name": "Bloomberg Markets", "url": "https://feeds.bloomberg.com/markets/news.rss"},
+    {"name": "FT Economics", "url": "https://www.ft.com/economics?format=rss"},
+    {"name": "WSJ Markets", "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"},
+    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar"},
 ]
 
 NEWS_MAX_ARTICLES = 30
