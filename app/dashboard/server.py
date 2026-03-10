@@ -8,12 +8,13 @@ import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, BackgroundTasks, HTTPException, Request
+from fastapi import FastAPI, BackgroundTasks, HTTPException, Request, Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app.config import BRIEFINGS_DIR, DATA_DIR
+from app.config import API_SECRET, BRIEFINGS_DIR, DATA_DIR
 from app.scheduler import create_scheduler
 
 logger = logging.getLogger(__name__)
@@ -33,6 +34,12 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Opening Bell", lifespan=lifespan)
+_bearer = HTTPBearer()
+
+
+def _verify_secret(credentials: HTTPAuthorizationCredentials = Security(_bearer)) -> None:
+    if not API_SECRET or credentials.credentials != API_SECRET:
+        raise HTTPException(status_code=401, detail="Invalid or missing API secret")
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
@@ -67,8 +74,8 @@ async def list_briefings():
 
 
 @app.post("/api/run")
-async def trigger_pipeline(background_tasks: BackgroundTasks):
-    """Manually trigger the pipeline. Runs in the background so the request returns immediately."""
+async def trigger_pipeline(background_tasks: BackgroundTasks, _: None = Security(_verify_secret)):
+    """Manually trigger the pipeline. Requires Authorization: Bearer <API_SECRET>."""
     from app.pipeline import run_pipeline
     background_tasks.add_task(run_pipeline)
     return {"status": "pipeline started — check back in ~30 seconds for the briefing"}

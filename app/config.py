@@ -25,6 +25,7 @@ def _optional_env(key: str, default: str = "") -> str:
 ANTHROPIC_API_KEY: str = ""  # loaded lazily to avoid startup errors
 SLACK_WEBHOOK_URL: str = ""
 DASHBOARD_URL: str = _optional_env("DASHBOARD_URL", "http://localhost:8000")
+API_SECRET: str = _optional_env("API_SECRET", "")
 
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
