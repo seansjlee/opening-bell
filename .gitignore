@@ -21,3 +21,4 @@ data/latest.json
 htmlcov/
 *.log
 logs/
+CLAUDE.md
