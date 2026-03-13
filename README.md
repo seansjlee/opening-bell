@@ -4,7 +4,7 @@ A daily global financial trends summariser that automatically generates and deli
 
 ## What It Does
 
-1. **Fetch** — Pulls major market indices, forex pairs, and commodities via `yfinance`, and top financial headlines from Reuters, BBC Business, CNBC, MarketWatch, and Yahoo Finance via RSS.
+1. **Fetch** — Pulls major market indices, forex pairs, and commodities via `yfinance`, and top financial headlines from BBC Business, Bloomberg Markets, FT Economics, WSJ Markets, and Nikkei Asia via RSS.
 2. **Summarise** — Sends the collected data to the Claude API (`claude-sonnet-4-20250514`) to generate a structured JSON briefing with market snapshot, top stories, macro commentary, and a key takeaway.
 3. **Notify** — Sends a compact briefing to Slack via Incoming Webhook using Block Kit (emoji market table, key takeaway, top headlines, dashboard link).
 4. **Display** — Hosts a mobile-first dark mode dashboard at your configured URL showing the full briefing with colour-coded market data and expandable story cards.
@@ -33,6 +33,7 @@ cp .env.example .env
 | `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key |
 | `SLACK_WEBHOOK_URL` | Yes | Slack Incoming Webhook URL |
 | `DASHBOARD_URL` | Optional | Public URL of your dashboard (shown in Slack messages) |
+| `API_SECRET` | Optional | Bearer token for the `POST /api/run` endpoint |
 
 ### 3. Getting Your API Keys
 
@@ -79,6 +80,7 @@ The dashboard is served by FastAPI at `http://localhost:8000` (or your `PORT`).
 - `GET /api/briefing/latest` — Latest briefing JSON
 - `GET /api/briefing/{YYYY-MM-DD}` — Specific date briefing
 - `GET /api/briefings` — List of available dates
+- `POST /api/run` — Manually trigger the pipeline (requires `Authorization: Bearer <API_SECRET>`)
 - `GET /health` — Health check
 
 ## Scheduler
@@ -96,6 +98,7 @@ When deployed, just run `make start` (or the Railway start command) — no separ
    - `ANTHROPIC_API_KEY`
    - `SLACK_WEBHOOK_URL`
    - `DASHBOARD_URL` (set this to your Railway app URL after first deploy)
+   - `API_SECRET` (optional — protects the `POST /api/run` endpoint)
 5. Railway auto-detects the start command from `railway.toml`
 
 Railway provides a `PORT` environment variable automatically — the app uses it via `${PORT:-8000}`.
